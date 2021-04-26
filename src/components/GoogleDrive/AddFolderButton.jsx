@@ -19,7 +19,7 @@ const StyledAddButton = styled(Button)`
   }
 `;
 
-const AddFolderButton = () => {
+const AddFolderButton = ({ currentFolder }) => {
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
 
@@ -34,6 +34,10 @@ const AddFolderButton = () => {
   };
 
   const handleAddFolder = () => {
+    if (currentFolder === null) {
+      return;
+    }
+
     console.log("Folder craeted");
 
     //create folder in database
@@ -41,7 +45,7 @@ const AddFolderButton = () => {
     database.folders.add({
       name: folderName,
       userId: currentUser.uid,
-      //   parentId,
+      parentId: currentFolder.id,
       //   path,
       createdAt: database.getCurrentTimestamp(),
     });

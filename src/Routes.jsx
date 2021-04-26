@@ -17,6 +17,9 @@ const Routes = () => {
         <Route path="/signin">
           <SignIn />
         </Route>
+        <Route path="/folder/:folderId">
+          <Dashboard />
+        </Route>
         <Route>
           <h1>404: Page not found</h1>
         </Route>
