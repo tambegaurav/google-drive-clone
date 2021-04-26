@@ -32,7 +32,12 @@ const StyledFolder = styled(Link)`
 
 const Folder = ({ folder }) => {
   return (
-    <StyledFolder to={`/folder/${folder.id}`}>
+    <StyledFolder
+      to={{
+        pathname: `/folder/${folder.id}`,
+        state: { folder: folder },
+      }}
+    >
       <FolderIcon />
       {folder.name.length > 13
         ? folder.name.substring(0, 13 - 3) + "..."

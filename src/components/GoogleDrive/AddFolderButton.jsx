@@ -4,6 +4,7 @@ import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 import styled from "styled-components";
 import { database } from "../../firebase";
 import { useAuth } from "../../context/AuthContextProvider";
+import { ROOT_FOLDER } from "../../hooks/useFolder";
 
 const CenteredModal = styled(Modal)`
   display: grid;
@@ -38,7 +39,13 @@ const AddFolderButton = ({ currentFolder }) => {
       return;
     }
 
-    console.log("Folder craeted");
+    const path = [...currentFolder.path];
+
+    if (currentFolder !== ROOT_FOLDER) {
+      path.push({ name: currentFolder.name, id: currentFolder.id });
+    }
+
+    console.log("Folder created");
 
     //create folder in database
 
@@ -46,7 +53,7 @@ const AddFolderButton = ({ currentFolder }) => {
       name: folderName,
       userId: currentUser.uid,
       parentId: currentFolder.id,
-      //   path,
+      path,
       createdAt: database.getCurrentTimestamp(),
     });
 

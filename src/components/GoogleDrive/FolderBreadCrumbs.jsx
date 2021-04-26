@@ -1,6 +1,8 @@
+import { Breadcrumbs } from "@material-ui/core";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { ROOT_FOLDER } from "../../hooks/useFolder";
 
 const StyledLink = styled(NavLink)`
   text-decoration: none;
@@ -14,8 +16,29 @@ const StyledLink = styled(NavLink)`
 `;
 
 const FolderBreadCrumbs = ({ currentFolder }) => {
+  let path = currentFolder === ROOT_FOLDER ? [] : [ROOT_FOLDER];
+
+  if (currentFolder) {
+    path = [...path, ...currentFolder.path];
+  }
+
   return (
-    <>{currentFolder && <StyledLink to="/">{currentFolder.name}</StyledLink>}</>
+    <Breadcrumbs>
+      {path.map((folder, index) => (
+        <StyledLink
+          key={folder.id}
+          // to={folder.id ? `/folder/${folder.id}` : "/"}
+
+          to={{
+            pathname: folder.id ? `/folder/${folder.id}` : "/",
+            state: { folder: { ...folder, path: path.slice(1, index) } },
+          }}
+        >
+          {folder.name}
+        </StyledLink>
+      ))}
+      {currentFolder && <StyledLink to="/">{currentFolder.name}</StyledLink>}
+    </Breadcrumbs>
   );
 };
 

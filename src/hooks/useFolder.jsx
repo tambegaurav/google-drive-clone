@@ -8,7 +8,7 @@ const ACTIONS = {
   SET_CHILD_FOLDERS: "SET_CHILD_FOLDERS",
 };
 
-const ROOT_FOLDER = {
+export const ROOT_FOLDER = {
   name: "ROOT",
   id: null,
   path: [],
@@ -44,14 +44,13 @@ const reducer = (state, { type, payload }) => {
 };
 
 export function useFolder(folderId = null, folder = null) {
-  const { currentUser } = useAuth();
-
   const [state, dispatch] = useReducer(reducer, {
     folderId,
     folder,
     childFolders: [],
     childFiles: [],
   });
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     dispatch({
@@ -96,22 +95,20 @@ export function useFolder(folderId = null, folder = null) {
   }, [folderId]);
 
   useEffect(() => {
-    const cleanup = database.folders
-      .where("parentId", "==", folderId)
-      .where("userId", "==", currentUser.uid)
-      .orderBy("createdAt")
-      .onSnapshot((snapshot) => {
-        dispatch({
-          type: ACTIONS.SET_CHILD_FOLDERS,
-          payload: {
-            childFolders: snapshot.docs.map(database.formattedDoc),
-          },
+    if (currentUser !== null) {
+      return database.folders
+        .where("parentId", "==", folderId)
+        .where("userId", "==", currentUser.uid)
+        .orderBy("createdAt")
+        .onSnapshot((snapshot) => {
+          dispatch({
+            type: ACTIONS.SET_CHILD_FOLDERS,
+            payload: {
+              childFolders: snapshot.docs.map(database.formattedDoc),
+            },
+          });
         });
-      });
-
-    return () => {
-      cleanup();
-    };
+    }
   }, [folderId, currentUser]);
 
   return state;
