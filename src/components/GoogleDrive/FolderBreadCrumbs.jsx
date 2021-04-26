@@ -37,7 +37,14 @@ const FolderBreadCrumbs = ({ currentFolder }) => {
           {folder.name}
         </StyledLink>
       ))}
-      {currentFolder && <StyledLink to="/">{currentFolder.name}</StyledLink>}
+      {currentFolder && (
+        <StyledLink
+          style={{ pointerEvents: "none" }}
+          to={`/folder/${currentFolder.id}`}
+        >
+          {currentFolder.name}
+        </StyledLink>
+      )}
     </Breadcrumbs>
   );
 };

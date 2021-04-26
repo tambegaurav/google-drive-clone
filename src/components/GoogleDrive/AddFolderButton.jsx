@@ -14,9 +14,9 @@ const CenteredModal = styled(Modal)`
 `;
 
 const StyledAddButton = styled(Button)`
-  box-shadow: 0px 0px 5px grey;
+  border: none;
   :hover {
-    box-shadow: 0px 0px 3px grey;
+    background-color: #fff !important;
   }
 `;
 
@@ -64,7 +64,7 @@ const AddFolderButton = ({ currentFolder }) => {
   return (
     <>
       <StyledAddButton onClick={handleOpen}>
-        <CreateNewFolderIcon style={{ color: "green" }} />
+        <CreateNewFolderIcon style={{ color: "#19348B" }} />
       </StyledAddButton>
       <CenteredModal
         open={open}

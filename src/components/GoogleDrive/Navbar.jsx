@@ -24,7 +24,9 @@ const Navbar = () => {
   return (
     <NavBar>
       <h1>GT-Drive</h1>
-      <Button onClick={handleLogout}>Logout</Button>
+      <Button style={{ color: "#f1f1f1" }} onClick={handleLogout}>
+        Logout
+      </Button>
     </NavBar>
   );
 };

@@ -8,6 +8,7 @@ export function useAuth() {
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  const [pending, setPending] = useState(true);
 
   const logout = () => {
     return auth.signOut();
@@ -26,6 +27,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setPending(false);
       console.log(currentUser);
     });
 
@@ -39,6 +41,7 @@ export const AuthContextProvider = ({ children }) => {
     signup,
     signin,
     logout,
+    pending,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

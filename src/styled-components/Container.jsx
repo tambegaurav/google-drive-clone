@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const MainDiv = styled.div`
   height: 90vh;
-  background-color: #fff;
+  background-color: #a3b5f1;
 `;
 
 const Container = ({ children }) => {
