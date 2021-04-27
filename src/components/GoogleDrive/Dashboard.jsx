@@ -1,7 +1,6 @@
 import React from "react";
-import { Redirect, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../../context/AuthContextProvider";
 import { useFolder } from "../../hooks/useFolder";
 import Container from "../../styled-components/Container";
 import FolderFlex from "../../styled-components/FolderFlex";
@@ -21,8 +20,6 @@ const Head = styled.div`
 `;
 
 const Dashboard = () => {
-  const { currentUser } = useAuth();
-
   const { folderId } = useParams();
 
   const { state = {} } = useLocation();
@@ -35,10 +32,6 @@ const Dashboard = () => {
   console.log(folder);
   console.log(childFolders);
   console.log(childFiles);
-
-  if (!currentUser) {
-    return <Redirect to="/signin" />;
-  }
 
   return (
     <div>

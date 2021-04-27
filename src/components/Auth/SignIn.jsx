@@ -128,6 +128,7 @@ const SignIn = () => {
             <TextField
               label="Password"
               variant="outlined"
+              type="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               id="password"

@@ -3,23 +3,24 @@ import { Switch, Route } from "react-router-dom";
 import Dashboard from "./components/GoogleDrive/Dashboard";
 import SignIn from "./components/Auth/SignIn";
 import SignUp from "./components/Auth/SignUp";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = () => {
   return (
     <div>
       <Switch>
-        <Route exact path="/">
+        <PrivateRoute exact={true} path="/">
           <Dashboard />
-        </Route>
+        </PrivateRoute>
         <Route path="/signup">
           <SignUp />
         </Route>
         <Route path="/signin">
           <SignIn />
         </Route>
-        <Route path="/folder/:folderId">
+        <PrivateRoute exact={true} path="/folder/:folderId">
           <Dashboard />
-        </Route>
+        </PrivateRoute>
         <Route>
           <h1>404: Page not found</h1>
         </Route>
